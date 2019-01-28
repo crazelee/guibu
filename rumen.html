@@ -1,0 +1,643 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  Golang入门 - Peace & Love
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="Peace & Love" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site: ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="_self" href="/home">主页</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">关于</a></li>
+        
+        <li id=""><a target="_self" href="/economic">经济学</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="http://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; Peace & Love</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">HOME</a></li>
+    <li><a href="archives.html">Archives</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="Thrift.html">Thrift</a></li>
+        
+            <li><a href="Golang.html">Golang</a></li>
+        
+            <li><a href="%E6%9E%B6%E6%9E%84.html">架构</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+	$(function(){
+		$('#menu_item_index').addClass('is_active');
+	});
+</script>
+<div class="row">
+	<div class="large-8 medium-8 columns">
+		<div class="markdown-body home-categories">
+		
+			<div class="article">
+                <a class="clearlink" href="15420268272754.html">
+                
+                  <h1>函数</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<h3 id="toc_0">函数声明</h3>
+
+<pre><code>func name(params-list) (result-list) {
+    body
+}
+</code></pre>
+
+<!--more-->
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2018/11/12</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='rumen.html'>Golang入门</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="%E5%A4%8D%E5%90%88%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html">
+                
+                  <h1>复合数据类型</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<h3 id="toc_0">数组</h3>
+
+<p>数组长度是固定的。</p>
+
+<pre><code>var a [3]int  // array of 3 integers
+var b [3]int = [3]int{1,2,3}
+c := [...]int{1, 2, 3}
+</code></pre>
+
+<!--more-->
+
+<p>如果两个数组的所有元素都相等，数组相等</p>
+
+<pre><code>a := [2]int{1, 2}
+b := [...]int{1,2}
+fmt.Println(a==b)  // true
+</code></pre>
+
+<h3 id="toc_1">切片 Slice</h3>
+
+<p>变长的序列，每个元素有相同的类型。<br/>
+一般写作[]T，Slice的语法和数组很像，只是没有固定长度而已。</p>
+
+<p>一个slice由三部分构成：指针、长度、容量。内置的len和cap函数返回对应长度和容量。<br/>
+len(s) == 0判断是否为空，不应该用 s == nil</p>
+
+<h3 id="toc_2">哈希表 Map</h3>
+
+<pre><code>args := make(map[string][int])  // 创建key为string，value为int型
+
+</code></pre>
+
+<pre><code># 初始化 1
+ages := map[string][int]{
+    &quot;li&quot; : 31,
+    &quot;bob&quot; : 23,
+}
+
+</code></pre>
+
+<p>相当于</p>
+
+<pre><code># 初始化 2
+ages := make(map[string][int])
+ages[&quot;li&quot;] = 31
+ages[&quot;bob&quot;] = 23
+
+</code></pre>
+
+<p>delete删除元素</p>
+
+<pre><code>delete(ages, &quot;li&quot;) // remove element ages[&quot;li&quot;]
+</code></pre>
+
+<p>把忽略value的map当做一个字符串集合，map[string]bool</p>
+
+<h3 id="toc_3">结构体</h3>
+
+<pre><code>type Employee struct {
+    ID int
+    Name, Adress string
+    Salary int
+}
+
+var dilbert Employee
+dilbert.Name   // 访问成员变量
+</code></pre>
+
+<p>如果结构体成员名字是以大写字母开头的，那么该成员就是导出的<br/>
+考虑效率的话，作为函数的变量，较大的结构体通常会用指针的方式传入和放回</p>
+
+<p><strong>结构体嵌入和匿名成员</strong></p>
+
+<pre><code>type Point struct {
+    X, Y int
+}
+
+type Circle struct {
+    Center Point
+    Redius int
+}
+
+type Wheel struct {
+    Circle Circle
+    Spokes int
+}
+</code></pre>
+
+<p>访问会变得繁琐</p>
+
+<pre><code>var w Wheel
+w.Circle.Center.X = 8
+w.Circle.Center.Y = 8
+w.Circle.Radius = 5
+w.Spokes = 20
+</code></pre>
+
+<p>Go语言的特性：可以只声明一个成员对应的数据类型而不指定成员名</p>
+
+<pre><code>type Point struct {
+    X, Y int
+}
+
+type Circle struct {
+    Point
+    Redius int
+}
+
+type Wheel struct {
+    Circle 
+    Spokes int
+}
+
+var w Wheel
+w.X = 8
+w.Y = 8
+w.Radius = 5
+w.Spokes = 20
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2018/11/12</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='rumen.html'>Golang入门</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="chengxujiegou.html">
+                
+                  <h1>程序结构</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<h3 id="toc_0">变量命名</h3>
+
+<p>名字的开头字母的大小写决定了名字在包外的可见性。<br/>
+如果一个名字是大写字母开头的，那么它将是导出的，也就是说可以被外部的包访问。<br/>
+例如fmt包的Printf函数就是导出的，可以在fmt包外部访问。包本身的名字一般总是用小写字母。</p>
+
+<!--more-->
+
+<h3 id="toc_1">声明</h3>
+
+<p>有四种类型的声明语句：<br/>
+变量var、常量const、类型type、函数实体对象func。</p>
+
+<h3 id="toc_2">变量</h3>
+
+<p><strong>1. var声明</strong></p>
+
+<p><code>var 变量名字 类型 = 表达式</code></p>
+
+<p>一般 “类型”、或者“=”可以省略一个，例如：</p>
+
+<pre><code>var i, j, k int // int, int, int
+var b, f, s = true, 2.3, &quot;four&quot; // bool, float64, string
+</code></pre>
+
+<p>用处：用于需要显式指定变量类型地方，或者因为变量稍后会被重新赋值而初<br/>
+始值无关紧要的地方。</p>
+
+<p><strong>2. 简短声明</strong></p>
+
+<p><code>变量名字 := 表达式</code></p>
+
+<pre><code>anim := gif.GIF{LoopCount: nframes}
+freq := rand.Float64() * 3.0
+t := 0.0
+</code></pre>
+
+<p>用处：用于大部分的局部变量的声明和初始化。</p>
+
+<p>注意，简短变量声明语句中必须至少要声明一个新的变量，下面的代码将不能编译通过：</p>
+
+<pre><code>f, err := os.Open(infile)
+// ...
+f, err := os.Create(outfile) // compile error: no new variables
+</code></pre>
+
+<h3 id="toc_3">指针</h3>
+
+<p>一个变量对应一个保存了变量对应类型值的内存空间。<br/>
+一个指针的值是另一个变量的地址。</p>
+
+<h3 id="toc_4">类型</h3>
+
+<p>类型声明语句一般出现在包一级，因此如果新创建的类型名字的首字符大写，则在外部包也可以使用。</p>
+
+<p><code>type 类型名字 底层类型</code></p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2018/11/11</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='rumen.html'>Golang入门</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="hello_go.html">
+                
+                  <h1>Hello,GO</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<h3 id="toc_0">第一个go程序：hello.go</h3>
+
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main(){
+    fmt.Println(&quot;Hello, Go&quot;)
+}
+</code></pre>
+
+<!--more-->
+
+<h3 id="toc_1">go run 一次性调试</h3>
+
+<pre><code class="language-go">$ go run hello.go
+Hello, Go
+</code></pre>
+
+<p><strong>说明</strong><br/>
+1. Go是一门编译型语言，Go语言的工具链将源代码及其依赖转换成计算机的机器指令。<br/>
+2. go run 编译一个或多个以.go结尾的源文件，链接库文件，并运行最终生成的可执行文件。</p>
+
+<h3 id="toc_2">go build 直接生成可执行程序</h3>
+
+<p>如果不只是一次性实验，你肯定希望能够编译这个程序，保存编译结果以备将来之用。可以用build子命令，将直接生成可执行文件 <code>hello</code>，之后直接运行hello可执行文件，结果与go run时是一致的：</p>
+
+<pre><code class="language-go">$ go build hello.go
+$ ./hello
+Hello, GO
+</code></pre>
+
+<h3 id="toc_3">基本认知</h3>
+
+<ol>
+<li><p>Go语言的代码通过包（package）组织，包类似于其它语言里的库（libraries）或者模块（modules）。每个源文件都以一条 package 声明语句开始，这个例子里就是 package main , 表示该文件属于哪个包，紧跟着一系列导入（import）的包，之后是存储在这个文件里的程序语句。</p></li>
+<li><p>main 包比较特殊。它定义了一个独立可执行的程序，而不是一个库。在 main 里的 main 函数也很特殊，它是整个程序执行时的入口</p></li>
+<li><p>import 声明必须跟在文件的 package 声明之后。</p></li>
+<li><p>gofmt 工具把代码格式化为标准格式，并且 go 工具中的 fmt 子命令会对指定包, 否则默认为当前目录, 中所有.go源文件应用 gofmt 命令。</p></li>
+<li><p>按照惯例，最好在每个包的包声明前添加注释；</p></li>
+<li><p>空标识符（_下划线）类似垃圾箱，将不需要的变量丢弃，如下，只需要range的value，而不需要索引，则可以赋值给他丢弃</p></li>
+</ol>
+
+<pre><code>for _, arg := range os.Args[1:] {
+s += sep + arg
+sep = &quot; &quot;
+}
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2018/11/11</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='rumen.html'>Golang入门</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+              
+
+
+			<div class="row">
+			  <div class="large-6 columns">
+			  <p class="text-left" style="padding-top:25px;">
+			   
+			  </p>
+			  </div>
+			  <div class="large-6 columns">
+			<p class="text-right" style="padding-top:25px;">
+			
+			</p>
+			  </div>
+			</div>
+		</div>
+	</div><!-- large 8 -->
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>Peace & Love</h1>
+                <div class="site-des">Code & Economic</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+
+              	 </div>
+          	</div>
+
+             
+
+        <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>联系我</h2>
+                </div>
+                <div class="side-content">
+
+        <p >
+            <img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3224473397,723571429&fm=173&app=49&f=JPEG?w=640&h=480&s=20C822F1D3B3C5CE18B8A85B030040F1e">
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="Thrift.html"><strong>Thrift</strong></a>
+        
+            <a href="Golang.html"><strong>Golang</strong></a>
+        
+            <a href="%E6%9E%B6%E6%9E%84.html"><strong>架构</strong></a>
+        
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15426169969393.html">GoLang包管理工具</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15422714202445.html">疑难问题</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="unit_test.html">单元测试</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15420268272754.html">函数</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="%E5%A4%8D%E5%90%88%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html">复合数据类型</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>

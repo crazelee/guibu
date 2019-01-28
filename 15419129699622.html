@@ -1,0 +1,390 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  代码目录结构 - Peace & Love
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="Peace & Love" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site: ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="_self" href="/home">主页</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">关于</a></li>
+        
+        <li id=""><a target="_self" href="/economic">经济学</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="http://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; Peace & Love</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">HOME</a></li>
+    <li><a href="archives.html">Archives</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="Thrift.html">Thrift</a></li>
+        
+            <li><a href="Golang.html">Golang</a></li>
+        
+            <li><a href="%E6%9E%B6%E6%9E%84.html">架构</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>代码目录结构</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2018/11/11</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='Golang.html'>Golang</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <p>Go API 项目中，一般都会包括这些功能项：Makefile 文件、配置文件目录、RESTful API 服务器的 handler 目录、model 目录、工具类目录、vendor 目录，以及实际处理业务逻辑函数所存放的 service 目录。</p>
+
+<pre><code>├── admin.sh                     # 进程的start|stop|status|restart控制文件
+├── conf                         # 配置文件统一存放目录
+│   ├── config.yaml              # 配置文件
+│   ├── server.crt               # TLS配置文件
+│   └── server.key
+├── config                       # 专门用来处理配置和配置文件的Go package
+│   └── config.go                 
+├── db.sql                       # 在部署新环境时，可以登录MySQL客户端，执行source db.sql创建数据库和表
+├── docs                         # swagger文档，执行 swag init 生成的
+│   ├── docs.go
+│   └── swagger
+│       ├── swagger.json
+│       └── swagger.yaml
+├── handler                      # 类似MVC架构中的C，用来读取输入，并将处理流程转发给实际的处理函数，最后返回结果
+│   ├── handler.go
+│   ├── sd                       # 健康检查handler
+│   │   └── check.go 
+│   └── user                     # 核心：用户业务逻辑handler
+│       ├── create.go            # 新增用户
+│       ├── delete.go            # 删除用户
+│       ├── get.go               # 获取指定的用户信息
+│       ├── list.go              # 查询用户列表
+│       ├── login.go             # 用户登录
+│       ├── update.go            # 更新用户
+│       └── user.go
+├── main.go                      # Go程序唯一入口
+├── Makefile                     # Makefile文件，一般大型软件系统都是采用make来作为编译工具
+├── model                        # 数据库相关的操作统一放在这里，包括数据库初始化和对表的增删改查
+│   ├── init.go                  # 初始化和连接数据库
+│   ├── model.go                 # 存放一些公用的go struct
+│   └── user.go                  # 用户相关的数据库CURD操作
+├── pkg                          # 引用的包
+│   ├── auth                     # 认证包
+│   │   └── auth.go
+│   ├── constvar                 # 常量统一存放位置
+│   │   └── constvar.go
+│   ├── errno                    # 错误码存放位置
+│   │   ├── code.go
+│   │   └── errno.go
+│   ├── token
+│   │   └── token.go
+│   └── version                  # 版本包
+│       ├── base.go
+│       ├── doc.go
+│       └── version.go
+├── README.md                    # API目录README
+├── router                       # 路由相关处理
+│   ├── middleware               # API服务器用的是Gin Web框架，Gin中间件存放位置
+│   │   ├── auth.go 
+│   │   ├── header.go
+│   │   ├── logging.go
+│   │   └── requestid.go
+│   └── router.go
+├── service                      # 实际业务处理函数存放位...
+</code></pre>
+
+<pre><code>$ gofmt -w .   
+$ go tool vet .
+$ go build -v .
+</code></pre>
+
+<p>建议每次编译前对 Go 源码进行格式化和代码静态检查，以发现潜在的 Bug 或可疑的构造。</p>
+
+
+    
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="hello_go.html" 
+          title="Previous Post: Hello,GO">&laquo; Hello,GO</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="15419065611518.html" 
+          title="Next Post: RESTful API 介绍">RESTful API 介绍 &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>Peace & Love</h1>
+                <div class="site-des">Code & Economic</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+
+              	 </div>
+          	</div>
+
+             
+
+        <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>联系我</h2>
+                </div>
+                <div class="side-content">
+
+        <p >
+            <img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3224473397,723571429&fm=173&app=49&f=JPEG?w=640&h=480&s=20C822F1D3B3C5CE18B8A85B030040F1e">
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="Thrift.html"><strong>Thrift</strong></a>
+        
+            <a href="Golang.html"><strong>Golang</strong></a>
+        
+            <a href="%E6%9E%B6%E6%9E%84.html"><strong>架构</strong></a>
+        
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15426169969393.html">GoLang包管理工具</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15422714202445.html">疑难问题</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="unit_test.html">单元测试</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15420268272754.html">函数</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="%E5%A4%8D%E5%90%88%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html">复合数据类型</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>

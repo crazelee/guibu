@@ -1,0 +1,444 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  单元测试 - Peace & Love
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="Peace & Love" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site: ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="_self" href="/home">主页</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">关于</a></li>
+        
+        <li id=""><a target="_self" href="/economic">经济学</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="http://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; Peace & Love</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">HOME</a></li>
+    <li><a href="archives.html">Archives</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="Thrift.html">Thrift</a></li>
+        
+            <li><a href="Golang.html">Golang</a></li>
+        
+            <li><a href="%E6%9E%B6%E6%9E%84.html">架构</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>单元测试</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2018/11/15</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='jinjie.html'>Golang进阶</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <h3 id="toc_0">一、简单单测</h3>
+
+<p>简单的方法 util.go</p>
+
+<pre><code>package lib
+
+import (
+    &quot;errors&quot;
+)
+
+type Util struct {}
+
+func (u Util)GenKey(day string) (string, error)  {
+    if day == &quot;&quot; {
+        return &quot;&quot;, errors.New(&quot;key不能为空&quot;)
+    }
+    return &quot;key_&quot; + day, nil
+}
+</code></pre>
+
+<p>编写单测 util_test.go，单测文件名 *_test.go</p>
+
+<pre><code>package lib
+
+import (
+    &quot;testing&quot;
+)
+
+func TestUtil_GenKey(t *testing.T) {
+    test := &quot;test&quot;
+    if key, err:= Util.GenKey(Util{}, test); key != &quot;key_test&quot; || err != nil {
+        t.Error(&quot;测试不通过&quot;)
+    } else {
+        t.Log(&quot;测试通过&quot;)
+    }
+}
+</code></pre>
+
+<p>执行命令<br/>
+<code>go test -v -cover util.go util_test.go</code></p>
+
+<p>解析：-v 结果可视化，-cover 显示覆盖率</p>
+
+<p><img src="media/15422535842174/15423369421133.jpg" alt=""/></p>
+
+<h3 id="toc_1">二、利用gotests实现自动化</h3>
+
+<p>简单的方法 helper.go</p>
+
+<pre><code>package lib
+
+import (
+    &quot;errors&quot;
+)
+
+type AutoUtil struct {}
+
+func (u AutoUtil)AutoGenKey(day string) (string, error)  {
+    if day == &quot;&quot; {
+        return &quot;&quot;, errors.New(&quot;key不能为空&quot;)
+    }
+    return &quot;key_&quot; + day, nil
+}
+
+</code></pre>
+
+<p>执行gotests命令行，将自动生成单测文件</p>
+
+<p><code>gotests -all helper.go &gt; helper_test.go</code></p>
+
+<p>看下helper_test.go，声明tests为测试用例集，会使用for range循环执行用例</p>
+
+<pre><code>//Generated TestAutoUtil_AutoGenKey
+package lib
+
+import &quot;testing&quot;
+
+func TestAutoUtil_AutoGenKey(t *testing.T) {
+    type args struct {
+        day string
+    }
+    tests := []struct {
+        name    string
+        u       AutoUtil
+        args    args
+        want    string
+        wantErr bool
+    }{
+        // TODO: Add test cases.
+    }
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            u := AutoUtil{}
+            got, err := u.AutoGenKey(tt.args.day)
+            if (err != nil) != tt.wantErr {
+                t.Errorf(&quot;AutoUtil.AutoGenKey() error = %v, wantErr %v&quot;, err, tt.wantErr)
+                return
+            }
+            if got != tt.want {
+                t.Errorf(&quot;AutoUtil.AutoGenKey() = %v, want %v&quot;, got, tt.want)
+            }
+        })
+    }
+}
+</code></pre>
+
+<p>编写用例</p>
+
+<pre><code>        // TODO: Add test cases.
+        {&quot;测试正常key&quot;, AutoUtil{}, args{&quot;20181115&quot;}, &quot;key_20181115&quot;, false},
+        {&quot;测试空字符key&quot;, AutoUtil{}, args{&quot;&quot;}, &quot;&quot;, true},
+</code></pre>
+
+<p>执行测试<br/>
+<img src="media/15422535842174/15423378017737.jpg" alt=""/></p>
+
+<p><strong>Tips.</strong> 直接执行当前包的所有文件<br/>
+<img src="media/15422535842174/15423378665509.jpg" alt=""/></p>
+
+
+    
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="15422714202445.html" 
+          title="Previous Post: 疑难问题">&laquo; 疑难问题</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="15420268272754.html" 
+          title="Next Post: 函数">函数 &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>Peace & Love</h1>
+                <div class="site-des">Code & Economic</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+
+              	 </div>
+          	</div>
+
+             
+
+        <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>联系我</h2>
+                </div>
+                <div class="side-content">
+
+        <p >
+            <img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3224473397,723571429&fm=173&app=49&f=JPEG?w=640&h=480&s=20C822F1D3B3C5CE18B8A85B030040F1e">
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="Thrift.html"><strong>Thrift</strong></a>
+        
+            <a href="Golang.html"><strong>Golang</strong></a>
+        
+            <a href="%E6%9E%B6%E6%9E%84.html"><strong>架构</strong></a>
+        
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15426169969393.html">GoLang包管理工具</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15422714202445.html">疑难问题</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="unit_test.html">单元测试</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15420268272754.html">函数</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="%E5%A4%8D%E5%90%88%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html">复合数据类型</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>
