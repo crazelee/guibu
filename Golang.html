@@ -83,6 +83,8 @@
             <li><a href="Golang.html">Golang</a></li>
         
             <li><a href="%E6%9E%B6%E6%9E%84.html">架构</a></li>
+        
+            <li><a href="mysql.html">Mysql</a></li>
          
 
       </ul>
@@ -104,6 +106,73 @@
 	<div class="large-8 medium-8 columns">
 		<div class="markdown-body home-categories">
 		
+			<div class="article">
+                <a class="clearlink" href="15434575943682.html">
+                
+                  <h1>godoc</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2018/11/29</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='jinjie.html'>Golang进阶</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="15433109706637.html">
+                
+                  <h1></h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>if _, ok := map[key]; ok {<br/>
+//存在<br/>
+}</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2018/11/27</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='rumen.html'>Golang入门</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
 			<div class="article">
                 <a class="clearlink" href="15426169969393.html">
                 
@@ -310,6 +379,42 @@ func TestAutoUtil_AutoGenKey(t *testing.T) {
 
 <p><strong>Tips.</strong> 直接执行当前包的所有文件<br/>
 <img src="media/15422535842174/15423378665509.jpg" alt=""/></p>
+
+<h3 id="toc_2">问题记录</h3>
+
+<p>今天写单测遇到一个问题，功能函数遇到错误是，返回</p>
+
+<pre><code>function test(s string) (ret map[int]string, err error){
+    ...
+    // 遇到异常抛出错误
+    return nil, errors.new(&quot;错误信息&quot;)
+}
+</code></pre>
+
+<p>用gotest生成单元测试</p>
+
+<pre><code>tests := []struct {
+        name    string
+        args    args
+        wantRet map[int]string
+        wantErr bool
+    }{
+        {&quot;非法情况&quot;,args{&quot;&quot;}, map[int]string{}, false},
+    }
+</code></pre>
+
+<p>这回直接去go tests，返回情况很意外，你会看到世界返回的map[]，我想要的也就是map[]，但是他却告诉我失败的FAIL<br/>
+<img src="media/15422535842174/15433789748846.jpg" alt=""/></p>
+
+<p>纳闷了很久，看到输出的错误信息，将里面的%v改成%#v，看看更多的输出信息<br/>
+<img src="media/15422535842174/15433791034400.jpg" alt=""/></p>
+
+<p>结果输出的结果是这样的<br/>
+<img src="media/15422535842174/15433791336563.jpg" alt=""/></p>
+
+<p>这回只要将你的测试用例改成这样就行了</p>
+
+<p><code>{&quot;非法情况&quot;,args{&quot;&quot;}, map[int]string{}, false}</code></p>
 
                         
                       </div>
@@ -968,6 +1073,8 @@ JSON 格式可读性更强，开发调试都很方便<br/>
         
             <a href="%E6%9E%B6%E6%9E%84.html"><strong>架构</strong></a>
         
+            <a href="mysql.html"><strong>Mysql</strong></a>
+        
         </p>
 
 
@@ -983,33 +1090,41 @@ JSON 格式可读性更强，开发调试都很方便<br/>
 	      
 		      
 			      <li class="post">
+			        <a href="15484038286693.html">【阿里-Canal】binlog的增量订阅&消费组件</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15469171168524.html">揭开binlog的神秘面纱</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15434575943682.html">godoc</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15433109706637.html"></a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
 			        <a href="15426169969393.html">GoLang包管理工具</a>
 			      </li>
 		     
 		  
 		      
-			      <li class="post">
-			        <a href="15422714202445.html">疑难问题</a>
-			      </li>
-		     
 		  
 		      
-			      <li class="post">
-			        <a href="unit_test.html">单元测试</a>
-			      </li>
-		     
 		  
 		      
-			      <li class="post">
-			        <a href="15420268272754.html">函数</a>
-			      </li>
-		     
 		  
 		      
-			      <li class="post">
-			        <a href="%E5%A4%8D%E5%90%88%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html">复合数据类型</a>
-			      </li>
-		     
 		  
 		      
 		  
